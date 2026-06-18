@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/ui/widgets/custom_app_bar.dart';
 import 'package:stacked/stacked.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'order_tracking_viewmodel.dart';
 
 class OrderTrackingView extends StackedView<OrderTrackingViewModel> {
@@ -19,25 +20,25 @@ class OrderTrackingView extends StackedView<OrderTrackingViewModel> {
       body: viewModel.isBusy
           ? const Center(child: CircularProgressIndicator(color: Colors.orange))
           : !viewModel.dataReady || viewModel.data == null
-          ? const Center(child: Text('Loading order...'))
+          ? Center(child: Text('Loading order...', style: TextStyle(fontSize: 16.sp)))
           : Padding(
-              padding: const EdgeInsets.all(24.0),
+              padding: EdgeInsets.all(24.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'Order #${viewModel.data!.id.substring(0, 8)}',
-                    style: const TextStyle(
-                      fontSize: 24,
+                    style: TextStyle(
+                      fontSize: 24.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  8.verticalSpace,
                   Text(
                     'Amount: \$${viewModel.data!.totalAmount.toStringAsFixed(2)}',
-                    style: const TextStyle(fontSize: 16, color: Colors.black54),
+                    style: TextStyle(fontSize: 16.sp, color: Colors.black54),
                   ),
-                  const SizedBox(height: 48),
+                  48.verticalSpace,
                   _buildTimeline(viewModel.data!.status),
                 ],
               ),
@@ -62,34 +63,34 @@ class OrderTrackingView extends StackedView<OrderTrackingViewModel> {
             Column(
               children: [
                 Container(
-                  width: 24,
-                  height: 24,
+                  width: 24.w,
+                  height: 24.w,
                   decoration: BoxDecoration(
                     color: isCompleted ? Colors.orange : Colors.grey[300],
                     shape: BoxShape.circle,
                   ),
                   child: isCompleted
-                      ? const Icon(Icons.check, size: 16, color: Colors.white)
+                      ? Icon(Icons.check, size: 16.w, color: Colors.white)
                       : null,
                 ),
                 if (!isLast)
                   Container(
-                    width: 2,
-                    height: 50,
+                    width: 2.w,
+                    height: 50.h,
                     color: isCompleted && !isCurrent
                         ? Colors.orange
                         : Colors.grey[300],
                   ),
               ],
             ),
-            const SizedBox(width: 16),
+            16.horizontalSpace,
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(top: 2.0),
+                padding: EdgeInsets.only(top: 2.h),
                 child: Text(
                   statuses[index],
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 18.sp,
                     fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal,
                     color: isCompleted ? Colors.black87 : Colors.black38,
                   ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stacked/stacked.dart';
 import '../../widgets/custom_app_bar.dart';
 import 'notifications_viewmodel.dart';
@@ -18,14 +19,14 @@ class NotificationsView extends StackedView<NotificationsViewModel> {
       body: viewModel.isBusy
           ? const Center(child: CircularProgressIndicator(color: Colors.orange))
           : !viewModel.dataReady || viewModel.data!.isEmpty
-              ? const Center(
+              ? Center(
                   child: Text(
                     'No new notifications.',
-                    style: TextStyle(color: Colors.black54, fontSize: 16),
+                    style: TextStyle(color: Colors.black54, fontSize: 16.sp),
                   ),
                 )
               : ListView.builder(
-                  padding: const EdgeInsets.all(16),
+                  padding: EdgeInsets.all(16.w),
                   itemCount: viewModel.data!.length,
                   itemBuilder: (context, index) {
                     final notification = viewModel.data![index];
@@ -39,11 +40,11 @@ class NotificationsView extends StackedView<NotificationsViewModel> {
                         }
                       },
                       child: Container(
-                        margin: const EdgeInsets.only(bottom: 12),
-                        padding: const EdgeInsets.all(16),
+                        margin: EdgeInsets.only(bottom: 12.h),
+                        padding: EdgeInsets.all(16.w),
                         decoration: BoxDecoration(
                           color: notification.isRead ? Colors.white : Colors.orange[50],
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(12.r),
                           border: Border.all(
                             color: notification.isRead ? Colors.grey[200]! : Colors.orange[200]!,
                           ),
@@ -59,7 +60,7 @@ class NotificationsView extends StackedView<NotificationsViewModel> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              padding: const EdgeInsets.all(8),
+                              padding: EdgeInsets.all(8.w),
                               decoration: BoxDecoration(
                                 color: notification.isRead ? Colors.grey[100] : Colors.orange[100],
                                 shape: BoxShape.circle,
@@ -69,7 +70,7 @@ class NotificationsView extends StackedView<NotificationsViewModel> {
                                 color: notification.isRead ? Colors.grey : Colors.orange,
                               ),
                             ),
-                            const SizedBox(width: 16),
+                            16.horizontalSpace,
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,27 +79,27 @@ class NotificationsView extends StackedView<NotificationsViewModel> {
                                     notification.title,
                                     style: TextStyle(
                                       fontWeight: notification.isRead ? FontWeight.normal : FontWeight.bold,
-                                      fontSize: 16,
+                                      fontSize: 16.sp,
                                       color: Colors.black87,
                                     ),
                                   ),
-                                  const SizedBox(height: 4),
+                                  4.verticalSpace,
                                   Text(
                                     notification.message,
-                                    style: const TextStyle(color: Colors.black54),
+                                    style: TextStyle(color: Colors.black54, fontSize: 14.sp),
                                   ),
-                                  const SizedBox(height: 8),
+                                  8.verticalSpace,
                                   Text(
                                     formattedDate,
-                                    style: const TextStyle(color: Colors.black38, fontSize: 12),
+                                    style: TextStyle(color: Colors.black38, fontSize: 12.sp),
                                   ),
                                 ],
                               ),
                             ),
                             if (!notification.isRead)
                               Container(
-                                width: 8,
-                                height: 8,
+                                width: 8.w,
+                                height: 8.w,
                                 decoration: const BoxDecoration(
                                   color: Colors.orange,
                                   shape: BoxShape.circle,

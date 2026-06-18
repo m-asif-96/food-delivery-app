@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'app/app.locator.dart';
 import 'app/app.router.dart';
@@ -29,18 +30,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Food Delivery App',
-      debugShowCheckedModeBanner: false,
-      navigatorKey: StackedService.navigatorKey,
-      onGenerateRoute: StackedRouter().onGenerateRoute,
-      initialRoute: Routes.startupView,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.orange,
-        ),
-      ),
+    return ScreenUtilInit(
+      designSize: const Size(390, 844), // Standard iPhone 12/13/14 size
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp(
+          title: 'Food Delivery App',
+          debugShowCheckedModeBanner: false,
+          navigatorKey: StackedService.navigatorKey,
+          onGenerateRoute: StackedRouter().onGenerateRoute,
+          initialRoute: Routes.startupView,
+          theme: ThemeData(
+            useMaterial3: true,
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.orange,
+            ),
+          ),
+        );
+      },
     );
   }
 }
