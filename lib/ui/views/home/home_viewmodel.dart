@@ -1,7 +1,5 @@
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
 import '../../../app/app.locator.dart';
-import '../../../app/app.router.dart';
 import '../../../models/product_model.dart';
 import '../../../services/product_service.dart';
 import '../../../services/cart_service.dart';
@@ -9,7 +7,6 @@ import '../../../services/cart_service.dart';
 class HomeViewModel extends BaseViewModel {
   final ProductService _productService = locator<ProductService>();
   final CartService _cartService = locator<CartService>();
-  final NavigationService _navigationService = locator<NavigationService>();
 
   List<Product> _products = [];
   List<Product> get products => _products;
@@ -65,4 +62,3 @@ class HomeViewModel extends BaseViewModel {
     _cartService.addToCart(product);
   }
 }
-

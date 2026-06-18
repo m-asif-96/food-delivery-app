@@ -4,6 +4,7 @@ import 'package:food_delivery_app/services/product_service.dart';
 import 'package:food_delivery_app/services/cart_service.dart';
 import 'package:food_delivery_app/services/order_service.dart';
 import 'package:food_delivery_app/services/notification_service.dart';
+import 'package:food_delivery_app/services/stripe_service.dart';
 import 'package:food_delivery_app/ui/views/home/homeview.dart';
 import 'package:food_delivery_app/ui/views/login/loginview.dart';
 import 'package:food_delivery_app/ui/views/startup/startupview.dart';
@@ -37,8 +38,10 @@ import 'package:stacked_services/stacked_services.dart';
     LazySingleton(classType: CartService),
     LazySingleton(classType: OrderService),
     LazySingleton(classType: NotificationService),
+    LazySingleton(classType: StripeService),
   ],
 )
 class App {}
+
 
 
