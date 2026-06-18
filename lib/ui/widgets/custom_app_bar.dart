@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_delivery_app/ui/common/app_colors.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -14,13 +15,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       elevation: 0,
-      iconTheme: const IconThemeData(color: Colors.black87),
+      iconTheme: const IconThemeData(color: AppColors.textPrimary),
       title: Text(
         title,
         style: TextStyle(
-          color: Colors.black87,
+          color: AppColors.textPrimary,
           fontWeight: FontWeight.bold,
           fontSize: 20.sp,
         ),
@@ -30,7 +31,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(1.0.h),
         child: Container(
-          color: Colors.grey[200],
+          color: AppColors.greyLight,
           height: 1.0.h,
         ),
       ),

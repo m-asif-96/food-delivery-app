@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../widgets/custom_button.dart';
 
 import 'login_viewmodel.dart';
+import 'package:food_delivery_app/ui/common/app_colors.dart';
+import 'package:food_delivery_app/ui/common/app_typography.dart';
 
 class LoginView extends StackedView<LoginViewModel> {
   const LoginView({super.key});
@@ -14,7 +17,7 @@ class LoginView extends StackedView<LoginViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -26,56 +29,36 @@ class LoginView extends StackedView<LoginViewModel> {
               Icon(
                 Icons.fastfood,
                 size: 100.w,
-                color: Colors.orange,
+                color: AppColors.primary,
               ),
               32.verticalSpace,
               Text(
                 'Welcome',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 32.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
+                style: AppTypography.h1,
               ),
               8.verticalSpace,
               Text(
                 'Sign in to order your favorite meals',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  color: Colors.black54,
-                ),
+                style: AppTypography.bodyLarge.copyWith(color: AppColors.textSecondary),
               ),
+              if (viewModel.hasError) ...[
+                16.verticalSpace,
+                Text(
+                  viewModel.modelError.toString(),
+                  textAlign: TextAlign.center,
+                  style: AppTypography.bodyMedium.copyWith(color: AppColors.error),
+                ),
+              ],
               const Spacer(),
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black87,
-                  foregroundColor: Colors.white,
-                  elevation: 0,
-                  padding: EdgeInsets.symmetric(vertical: 16.h),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.r),
-                  ),
-                ),
-                onPressed: viewModel.isBusy ? null : viewModel.signInWithGoogle,
-                icon: viewModel.isBusy
-                    ? SizedBox(
-                        width: 24.w,
-                        height: 24.w,
-                        child: const CircularProgressIndicator(
-                          strokeWidth: 2,
-                          color: Colors.white,
-                        ),
-                      )
-                    : const Icon(Icons.login),
-                label: Text(
-                  'Continue with Google',
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+              CustomButton(
+                title: 'Continue with Google',
+                onPressed: viewModel.signInWithGoogle,
+                isBusy: viewModel.isBusy,
+                backgroundColor: AppColors.textPrimary,
+                foregroundColor: AppColors.white,
+                icon: Icons.login,
               ),
               48.verticalSpace,
             ],

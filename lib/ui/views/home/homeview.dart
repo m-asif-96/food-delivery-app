@@ -4,6 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'home_viewmodel.dart';
 import '../../widgets/product_card.dart';
+import '../../widgets/loading_indicator.dart';
+import '../../widgets/empty_state.dart';
+import '../../widgets/error_state.dart';
+import 'package:food_delivery_app/ui/common/app_colors.dart';
 
 class HomeView extends StackedView<HomeViewModel> {
   const HomeView({super.key});
@@ -20,25 +24,25 @@ class HomeView extends StackedView<HomeViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: AppColors.background,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.transparent,
         elevation: 0,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Location',
-              style: TextStyle(color: Colors.black54, fontSize: 12.sp),
+              style: TextStyle(color: AppColors.textSecondary, fontSize: 12.sp),
             ),
             Row(
               children: [
-                Icon(Icons.location_on, color: Colors.orange, size: 16.w),
+                Icon(Icons.location_on, color: AppColors.primary, size: 16.w),
                 4.horizontalSpace,
                 Text(
                   'New York, USA',
                   style: TextStyle(
-                    color: Colors.black87,
+                    color: AppColors.textPrimary,
                     fontSize: 14.sp,
                     fontWeight: FontWeight.bold,
                   ),
@@ -60,7 +64,7 @@ class HomeView extends StackedView<HomeViewModel> {
                 fontSize: 28.sp,
                 fontWeight: FontWeight.bold,
                 height: 1.2,
-                color: Colors.black87,
+                color: AppColors.textPrimary,
               ),
             ),
             24.verticalSpace,
@@ -79,17 +83,17 @@ class HomeView extends StackedView<HomeViewModel> {
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
                       decoration: BoxDecoration(
-                        color: isSelected ? Colors.orange : Colors.white,
+                        color: isSelected ? AppColors.primary : AppColors.white,
                         borderRadius: BorderRadius.circular(20.r),
                         border: Border.all(
-                          color: isSelected ? Colors.orange : Colors.grey[300]!,
+                          color: isSelected ? AppColors.primary : AppColors.greyMedium,
                         ),
                       ),
                       alignment: Alignment.center,
                       child: Text(
                         category,
                         style: TextStyle(
-                          color: isSelected ? Colors.white : Colors.black87,
+                          color: isSelected ? AppColors.white : AppColors.textPrimary,
                           fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                           fontSize: 14.sp,
                         ),
@@ -101,15 +105,17 @@ class HomeView extends StackedView<HomeViewModel> {
             ),
             24.verticalSpace,
             Expanded(
-              child: viewModel.isBusy
-                  ? const Center(child: CircularProgressIndicator(color: Colors.orange))
-                  : viewModel.filteredProducts.isEmpty
-                      ? Center(
-                          child: Text(
-                            'No products found.',
-                            style: TextStyle(color: Colors.black54, fontSize: 14.sp),
-                          ),
-                        )
+              child: viewModel.hasError
+                  ? ErrorState(
+                      message: viewModel.modelError.toString(),
+                      onRetry: viewModel.fetchProducts,
+                    )
+                  : viewModel.isBusy
+                      ? const LoadingIndicator()
+                      : viewModel.filteredProducts.isEmpty
+                          ? const EmptyState(
+                              message: 'No products found.',
+                            )
                       : GridView.builder(
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
@@ -143,4 +149,4 @@ class HomeView extends StackedView<HomeViewModel> {
 
   @override
   HomeViewModel viewModelBuilder(BuildContext context) => HomeViewModel();
-}
+}

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../models/product_model.dart';
+import 'package:food_delivery_app/ui/common/app_colors.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -17,11 +18,11 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: AppColors.black.withOpacity(0.05),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),
@@ -41,14 +42,14 @@ class ProductCard extends StatelessWidget {
                       fadeInDuration: Duration.zero,
                       fadeOutDuration: Duration.zero,
                       placeholder: (context, url) => Container(
-                        color: Colors.grey[200],
+                        color: AppColors.greyLight,
                       ),
                       errorWidget: (context, url, error) => Center(
-                        child: Icon(Icons.fastfood, size: 40.w, color: Colors.orange),
+                        child: Icon(Icons.fastfood, size: 40.w, color: AppColors.primary),
                       ),
                     )
                   : Center(
-                      child: Icon(Icons.fastfood, size: 40.w, color: Colors.orange),
+                      child: Icon(Icons.fastfood, size: 40.w, color: AppColors.primary),
                     ),
             ),
           ),
@@ -72,7 +73,7 @@ class ProductCard extends StatelessWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    color: Colors.black54,
+                    color: AppColors.textSecondary,
                     fontSize: 12.sp,
                   ),
                 ),
@@ -85,7 +86,7 @@ class ProductCard extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16.sp,
-                        color: Colors.orange,
+                        color: AppColors.primary,
                       ),
                     ),
                     InkWell(
@@ -93,12 +94,12 @@ class ProductCard extends StatelessWidget {
                       child: Container(
                         padding: EdgeInsets.all(4.w),
                         decoration: BoxDecoration(
-                          color: Colors.orange,
+                          color: AppColors.primary,
                           borderRadius: BorderRadius.circular(8.r),
                         ),
                         child: Icon(
                           Icons.add,
-                          color: Colors.white,
+                          color: AppColors.white,
                           size: 20.w,
                         ),
                       ),

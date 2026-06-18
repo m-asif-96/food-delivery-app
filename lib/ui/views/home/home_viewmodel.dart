@@ -44,11 +44,18 @@ class HomeViewModel extends BaseViewModel {
     if (!_productService.hasCachedProducts) {
       setBusy(true);
     }
-    _products = await _productService.getProducts();
-    if (isBusy) {
-      setBusy(false);
-    } else {
-      notifyListeners();
+    
+    try {
+      _products = await _productService.getProducts();
+      clearErrors();
+    } catch (e) {
+      setError(e.toString());
+    } finally {
+      if (isBusy) {
+        setBusy(false);
+      } else {
+        notifyListeners();
+      }
     }
   }
 
