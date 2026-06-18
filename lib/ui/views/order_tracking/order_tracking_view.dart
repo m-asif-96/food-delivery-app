@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/ui/widgets/custom_app_bar.dart';
 import 'package:stacked/stacked.dart';
 import 'order_tracking_viewmodel.dart';
 
@@ -13,36 +14,34 @@ class OrderTrackingView extends StackedView<OrderTrackingViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Track Order', style: TextStyle(color: Colors.black87)),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.black87),
-      ),
-      backgroundColor: Colors.white,
+      appBar: const CustomAppBar(title: 'Order Tracking'),
+      backgroundColor: Colors.grey[50],
       body: viewModel.isBusy
           ? const Center(child: CircularProgressIndicator(color: Colors.orange))
           : !viewModel.dataReady || viewModel.data == null
-              ? const Center(child: Text('Loading order...'))
-              : Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Order #${viewModel.data!.id.substring(0, 8)}',
-                        style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Amount: \$${viewModel.data!.totalAmount.toStringAsFixed(2)}',
-                        style: const TextStyle(fontSize: 16, color: Colors.black54),
-                      ),
-                      const SizedBox(height: 48),
-                      _buildTimeline(viewModel.data!.status),
-                    ],
+          ? const Center(child: Text('Loading order...'))
+          : Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Order #${viewModel.data!.id.substring(0, 8)}',
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Amount: \$${viewModel.data!.totalAmount.toStringAsFixed(2)}',
+                    style: const TextStyle(fontSize: 16, color: Colors.black54),
+                  ),
+                  const SizedBox(height: 48),
+                  _buildTimeline(viewModel.data!.status),
+                ],
+              ),
+            ),
     );
   }
 
@@ -77,7 +76,9 @@ class OrderTrackingView extends StackedView<OrderTrackingViewModel> {
                   Container(
                     width: 2,
                     height: 50,
-                    color: isCompleted && !isCurrent ? Colors.orange : Colors.grey[300],
+                    color: isCompleted && !isCurrent
+                        ? Colors.orange
+                        : Colors.grey[300],
                   ),
               ],
             ),

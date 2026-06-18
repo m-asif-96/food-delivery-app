@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import '../../widgets/custom_app_bar.dart';
 import 'notifications_viewmodel.dart';
 
 class NotificationsView extends StackedView<NotificationsViewModel> {
@@ -13,11 +14,7 @@ class NotificationsView extends StackedView<NotificationsViewModel> {
   ) {
     return Scaffold(
       backgroundColor: Colors.grey[50],
-      appBar: AppBar(
-        title: const Text('Notifications', style: TextStyle(color: Colors.black87)),
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
+      appBar: const CustomAppBar(title: 'Notifications'),
       body: viewModel.isBusy
           ? const Center(child: CircularProgressIndicator(color: Colors.orange))
           : !viewModel.dataReady || viewModel.data!.isEmpty

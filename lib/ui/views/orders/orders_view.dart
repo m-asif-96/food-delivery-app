@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import '../../widgets/custom_app_bar.dart';
 import 'orders_viewmodel.dart';
 
 class OrdersView extends StackedView<OrdersViewModel> {
@@ -12,12 +13,7 @@ class OrdersView extends StackedView<OrdersViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Order History', style: TextStyle(color: Colors.black87)),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.black87),
-      ),
+      appBar: const CustomAppBar(title: 'Order History'),
       backgroundColor: Colors.grey[50],
       body: viewModel.isBusy
           ? const Center(child: CircularProgressIndicator(color: Colors.orange))

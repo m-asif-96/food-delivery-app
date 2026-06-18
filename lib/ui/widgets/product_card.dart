@@ -37,12 +37,10 @@ class ProductCard extends StatelessWidget {
                       imageUrl: product.imageUrl,
                       fit: BoxFit.cover,
                       width: double.infinity,
-                      placeholder: (context, url) => const Center(
-                        child: SizedBox(
-                          width: 24,
-                          height: 24,
-                          child: CircularProgressIndicator(strokeWidth: 2, color: Colors.orange),
-                        ),
+                      fadeInDuration: Duration.zero,
+                      fadeOutDuration: Duration.zero,
+                      placeholder: (context, url) => Container(
+                        color: Colors.grey[200],
                       ),
                       errorWidget: (context, url, error) => const Center(
                         child: Icon(Icons.fastfood, size: 40, color: Colors.orange),
