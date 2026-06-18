@@ -43,7 +43,7 @@ class CartViewModel extends BaseViewModel {
     clearErrors();
 
     try {
-      // 1. Process Stripe Payment
+      //  Process Stripe Payment
       final paymentSuccess = await _stripeService.processPayment(totalPrice);
 
       if (!paymentSuccess) {
@@ -52,17 +52,17 @@ class CartViewModel extends BaseViewModel {
         return;
       }
 
-      // 2. If payment succeeds, create the order
+      //  If payment succeeds, create the order
       final orderId = await _orderService.createOrder(
         userId: user.uid,
         items: cartItems,
         totalAmount: totalPrice,
       );
 
-      // 3. Clear the cart
+      //  Clear the cart
       _cartService.clearCart();
       
-      // 4. Navigate to order tracking
+      //  Navigate to order tracking
       _navigationService.navigateTo(
         Routes.orderTrackingView,
         arguments: OrderTrackingViewArguments(orderId: orderId),
