@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../models/product_model.dart';
 
 class ProductCard extends StatelessWidget {
@@ -17,7 +18,7 @@ class ProductCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
@@ -31,30 +32,28 @@ class ProductCard extends StatelessWidget {
         children: [
           Expanded(
             child: ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
               child: product.imageUrl.isNotEmpty
                   ? CachedNetworkImage(
                       imageUrl: product.imageUrl,
                       fit: BoxFit.cover,
                       width: double.infinity,
-                      placeholder: (context, url) => const Center(
-                        child: SizedBox(
-                          width: 24,
-                          height: 24,
-                          child: CircularProgressIndicator(strokeWidth: 2, color: Colors.orange),
-                        ),
+                      fadeInDuration: Duration.zero,
+                      fadeOutDuration: Duration.zero,
+                      placeholder: (context, url) => Container(
+                        color: Colors.grey[200],
                       ),
-                      errorWidget: (context, url, error) => const Center(
-                        child: Icon(Icons.fastfood, size: 40, color: Colors.orange),
+                      errorWidget: (context, url, error) => Center(
+                        child: Icon(Icons.fastfood, size: 40.w, color: Colors.orange),
                       ),
                     )
-                  : const Center(
-                      child: Icon(Icons.fastfood, size: 40, color: Colors.orange),
+                  : Center(
+                      child: Icon(Icons.fastfood, size: 40.w, color: Colors.orange),
                     ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: EdgeInsets.all(12.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -62,45 +61,45 @@ class ProductCard extends StatelessWidget {
                   product.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                    fontSize: 16.sp,
                   ),
                 ),
-                const SizedBox(height: 4),
+                4.verticalSpace,
                 Text(
                   product.description,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.black54,
-                    fontSize: 12,
+                    fontSize: 12.sp,
                   ),
                 ),
-                const SizedBox(height: 8),
+                8.verticalSpace,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       '\$${product.price.toStringAsFixed(2)}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                        fontSize: 16.sp,
                         color: Colors.orange,
                       ),
                     ),
                     InkWell(
                       onTap: onAdd,
                       child: Container(
-                        padding: const EdgeInsets.all(4),
+                        padding: EdgeInsets.all(4.w),
                         decoration: BoxDecoration(
                           color: Colors.orange,
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(8.r),
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.add,
                           color: Colors.white,
-                          size: 20,
+                          size: 20.w,
                         ),
                       ),
                     ),

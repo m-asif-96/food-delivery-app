@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'startup_viewmodel.dart';
 
@@ -17,7 +18,7 @@ class StartupView extends StackedView<StartupViewModel> {
     StartupViewModel viewModel,
     Widget? child,
   ) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
         child: Column(
@@ -25,20 +26,20 @@ class StartupView extends StackedView<StartupViewModel> {
           children: [
             Icon(
               Icons.restaurant_menu,
-              size: 80,
+              size: 80.w,
               color: Colors.orange,
             ),
-            SizedBox(height: 16),
+            16.verticalSpace,
             Text(
               'Food Delivery',
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 24.sp,
                 fontWeight: FontWeight.bold,
                 color: Colors.black87,
               ),
             ),
-            SizedBox(height: 48),
-            CircularProgressIndicator(
+            48.verticalSpace,
+            const CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
             ),
           ],

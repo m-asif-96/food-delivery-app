@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'navigation_viewmodel.dart';
 import '../home/homeview.dart';
 import '../orders/orders_view.dart';
@@ -24,41 +25,36 @@ class NavigationView extends StackedView<NavigationViewModel> {
         selectedItemColor: Colors.orange,
         unselectedItemColor: Colors.grey,
         items: [
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            activeIcon: Icon(Icons.home),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined, size: 24.w),
+            activeIcon: Icon(Icons.home, size: 24.w),
             label: 'Home',
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.receipt_long_outlined),
-            activeIcon: Icon(Icons.receipt_long),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.receipt_long_outlined, size: 24.w),
+            activeIcon: Icon(Icons.receipt_long, size: 24.w),
             label: 'Orders',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart_outlined),
-            activeIcon: Icon(Icons.shopping_cart),
-            label: 'Cart',
           ),
           BottomNavigationBarItem(
             icon: Stack(
               clipBehavior: Clip.none,
               children: [
-                const Icon(Icons.notifications_outlined),
-                if (viewModel.unreadCount > 0)
+                Icon(Icons.shopping_cart_outlined, size: 24.w),
+                if (viewModel.cartCount > 0)
                   Positioned(
                     right: -2,
                     top: -2,
                     child: Container(
-                      padding: const EdgeInsets.all(4),
+                      padding: EdgeInsets.all(4.w),
                       decoration: const BoxDecoration(
-                        color: Colors.red,
+                        color: Colors.orange,
                         shape: BoxShape.circle,
                       ),
                       child: Text(
-                        '${viewModel.unreadCount}',
-                        style: const TextStyle(
+                        '${viewModel.cartCount}',
+                        style: TextStyle(
                           color: Colors.white,
-                          fontSize: 8,
+                          fontSize: 8.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -69,22 +65,77 @@ class NavigationView extends StackedView<NavigationViewModel> {
             activeIcon: Stack(
               clipBehavior: Clip.none,
               children: [
-                const Icon(Icons.notifications),
+                Icon(Icons.shopping_cart, size: 24.w),
+                if (viewModel.cartCount > 0)
+                  Positioned(
+                    right: -2,
+                    top: -2,
+                    child: Container(
+                      padding: EdgeInsets.all(4.w),
+                      decoration: const BoxDecoration(
+                        color: Colors.orange,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Text(
+                        '${viewModel.cartCount}',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 8.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+            label: 'Cart',
+          ),
+          BottomNavigationBarItem(
+            icon: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Icon(Icons.notifications_outlined, size: 24.w),
                 if (viewModel.unreadCount > 0)
                   Positioned(
                     right: -2,
                     top: -2,
                     child: Container(
-                      padding: const EdgeInsets.all(4),
+                      padding: EdgeInsets.all(4.w),
                       decoration: const BoxDecoration(
                         color: Colors.red,
                         shape: BoxShape.circle,
                       ),
                       child: Text(
                         '${viewModel.unreadCount}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Colors.white,
-                          fontSize: 8,
+                          fontSize: 8.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+            activeIcon: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Icon(Icons.notifications, size: 24.w),
+                if (viewModel.unreadCount > 0)
+                  Positioned(
+                    right: -2,
+                    top: -2,
+                    child: Container(
+                      padding: EdgeInsets.all(4.w),
+                      decoration: const BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Text(
+                        '${viewModel.unreadCount}',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 8.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

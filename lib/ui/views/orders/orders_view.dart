@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../widgets/custom_app_bar.dart';
 import 'orders_viewmodel.dart';
 
 class OrdersView extends StackedView<OrdersViewModel> {
@@ -12,19 +14,14 @@ class OrdersView extends StackedView<OrdersViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Order History', style: TextStyle(color: Colors.black87)),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.black87),
-      ),
+      appBar: const CustomAppBar(title: 'Order History'),
       backgroundColor: Colors.grey[50],
       body: viewModel.isBusy
           ? const Center(child: CircularProgressIndicator(color: Colors.orange))
           : !viewModel.dataReady || viewModel.data!.isEmpty
-              ? const Center(child: Text('No orders found.'))
+              ? Center(child: Text('No orders found.', style: TextStyle(fontSize: 16.sp)))
               : ListView.builder(
-                  padding: const EdgeInsets.all(16),
+                  padding: EdgeInsets.all(16.w),
                   itemCount: viewModel.data!.length,
                   itemBuilder: (context, index) {
                     final order = viewModel.data![index];
@@ -32,10 +29,10 @@ class OrdersView extends StackedView<OrdersViewModel> {
                     final formattedDate = '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}';
                     
                     return Card(
-                      margin: const EdgeInsets.only(bottom: 16),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      margin: EdgeInsets.only(bottom: 16.h),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
                       child: Padding(
-                        padding: const EdgeInsets.all(16.0),
+                        padding: EdgeInsets.all(16.w),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -44,49 +41,49 @@ class OrdersView extends StackedView<OrdersViewModel> {
                               children: [
                                 Text(
                                   'Order #${order.id.substring(0, 8)}',
-                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp),
                                 ),
                                 Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                                  padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
                                   decoration: BoxDecoration(
                                     color: _getStatusColor(order.status).withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(12),
+                                    borderRadius: BorderRadius.circular(12.r),
                                   ),
                                   child: Text(
                                     order.status,
                                     style: TextStyle(
                                       color: _getStatusColor(order.status),
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 12,
+                                      fontSize: 12.sp,
                                     ),
                                   ),
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 8),
+                            8.verticalSpace,
                             Text(
                               formattedDate,
-                              style: const TextStyle(color: Colors.black54, fontSize: 12),
+                              style: TextStyle(color: Colors.black54, fontSize: 12.sp),
                             ),
-                            const Divider(height: 24),
+                            Divider(height: 24.h),
                             ...order.items.map((item) => Padding(
-                                  padding: const EdgeInsets.only(bottom: 4.0),
+                                  padding: EdgeInsets.only(bottom: 4.h),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text('${item.quantity}x ${item.product.name}'),
-                                      Text('\$${item.totalPrice.toStringAsFixed(2)}'),
+                                      Text('${item.quantity}x ${item.product.name}', style: TextStyle(fontSize: 14.sp)),
+                                      Text('\$${item.totalPrice.toStringAsFixed(2)}', style: TextStyle(fontSize: 14.sp)),
                                     ],
                                   ),
                                 )),
-                            const Divider(height: 24),
+                            Divider(height: 24.h),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Text('Total', style: TextStyle(fontWeight: FontWeight.bold)),
+                                Text('Total', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp)),
                                 Text(
                                   '\$${order.totalAmount.toStringAsFixed(2)}',
-                                  style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.orange),
+                                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.orange, fontSize: 16.sp),
                                 ),
                               ],
                             ),

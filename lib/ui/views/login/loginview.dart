@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'login_viewmodel.dart';
 
@@ -16,33 +17,33 @@ class LoginView extends StackedView<LoginViewModel> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const Spacer(),
-              const Icon(
+              Icon(
                 Icons.fastfood,
-                size: 100,
+                size: 100.w,
                 color: Colors.orange,
               ),
-              const SizedBox(height: 32),
-              const Text(
+              32.verticalSpace,
+              Text(
                 'Welcome',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 32,
+                  fontSize: 32.sp,
                   fontWeight: FontWeight.bold,
                   color: Colors.black87,
                 ),
               ),
-              const SizedBox(height: 8),
-              const Text(
+              8.verticalSpace,
+              Text(
                 'Sign in to order your favorite meals',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   color: Colors.black54,
                 ),
               ),
@@ -52,31 +53,31 @@ class LoginView extends StackedView<LoginViewModel> {
                   backgroundColor: Colors.black87,
                   foregroundColor: Colors.white,
                   elevation: 0,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  padding: EdgeInsets.symmetric(vertical: 16.h),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(12.r),
                   ),
                 ),
                 onPressed: viewModel.isBusy ? null : viewModel.signInWithGoogle,
                 icon: viewModel.isBusy
-                    ? const SizedBox(
-                        width: 24,
-                        height: 24,
-                        child: CircularProgressIndicator(
+                    ? SizedBox(
+                        width: 24.w,
+                        height: 24.w,
+                        child: const CircularProgressIndicator(
                           strokeWidth: 2,
                           color: Colors.white,
                         ),
                       )
                     : const Icon(Icons.login),
-                label: const Text(
+                label: Text(
                   'Continue with Google',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
-              const SizedBox(height: 48),
+              48.verticalSpace,
             ],
           ),
         ),

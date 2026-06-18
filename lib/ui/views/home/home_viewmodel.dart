@@ -41,9 +41,15 @@ class HomeViewModel extends BaseViewModel {
   }
 
   Future<void> fetchProducts() async {
-    setBusy(true);
+    if (!_productService.hasCachedProducts) {
+      setBusy(true);
+    }
     _products = await _productService.getProducts();
-    setBusy(false);
+    if (isBusy) {
+      setBusy(false);
+    } else {
+      notifyListeners();
+    }
   }
 
   List<Product> get filteredProducts {

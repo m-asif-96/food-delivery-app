@@ -3,11 +3,18 @@ import '../models/product_model.dart';
 
 class ProductService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  List<Product> _cachedProducts = [];
 
-  Future<List<Product>> getProducts() async {
+  bool get hasCachedProducts => _cachedProducts.isNotEmpty;
+
+  Future<List<Product>> getProducts({bool forceRefresh = false}) async {
+    if (_cachedProducts.isNotEmpty && !forceRefresh) {
+      return _cachedProducts;
+    }
     try {
       final snapshot = await _firestore.collection('products').get();
-      return snapshot.docs.map((doc) => Product.fromMap(doc.data(), doc.id)).toList();
+      _cachedProducts = snapshot.docs.map((doc) => Product.fromMap(doc.data(), doc.id)).toList();
+      return _cachedProducts;
     } catch (e) {
       print('Error fetching products: $e');
       return [];
