@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../models/product_model.dart';
 import 'package:food_delivery_app/ui/common/app_colors.dart';
+import 'package:food_delivery_app/ui/common/app_typography.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -22,7 +23,7 @@ class ProductCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: AppColors.black.withOpacity(0.05),
+            color: AppColors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),
@@ -62,20 +63,14 @@ class ProductCard extends StatelessWidget {
                   product.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16.sp,
-                  ),
+                  style: AppTypography.bodyLargeBold,
                 ),
                 4.verticalSpace,
                 Text(
                   product.description,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: AppColors.textSecondary,
-                    fontSize: 12.sp,
-                  ),
+                  style: AppTypography.bodySmall,
                 ),
                 8.verticalSpace,
                 Row(
@@ -83,14 +78,13 @@ class ProductCard extends StatelessWidget {
                   children: [
                     Text(
                       '\$${product.price.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.sp,
+                      style: AppTypography.bodyLargeBold.copyWith(
                         color: AppColors.primary,
                       ),
                     ),
                     InkWell(
                       onTap: onAdd,
+                      borderRadius: BorderRadius.circular(8.r),
                       child: Container(
                         padding: EdgeInsets.all(4.w),
                         decoration: BoxDecoration(

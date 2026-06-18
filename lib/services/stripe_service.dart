@@ -5,8 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class StripeService {
-  // NOTE: In production, the Secret Key MUST remain on a backend server.
-  // We use dotenv locally so it is not exposed in Git history.
+  
   String get _secretKey => dotenv.env['STRIPE_SECRET_KEY'] ?? '';
 
   Future<bool> processPayment(double amount) async {
@@ -15,7 +14,7 @@ class StripeService {
       final paymentIntentData = await _createPaymentIntent(amount, 'USD');
       if (paymentIntentData == null) return false;
 
-      // 2. Initialize Payment Sheet
+      // Initialize Payment Sheet
       await Stripe.instance.initPaymentSheet(
         paymentSheetParameters: SetupPaymentSheetParameters(
           paymentIntentClientSecret: paymentIntentData['client_secret'],
