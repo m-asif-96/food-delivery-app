@@ -48,6 +48,11 @@ class HomeView extends StackedView<HomeViewModel> {
         ),
         actions: [
           IconButton(
+            onPressed: viewModel.navigateToOrders,
+            icon: const Icon(Icons.receipt_long, color: Colors.black87),
+          ),
+          IconButton(
+
             onPressed: viewModel.navigateToCart,
             icon: Stack(
               clipBehavior: Clip.none,

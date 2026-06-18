@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'cart_viewmodel.dart';
 
 class CartView extends StackedView<CartViewModel> {
@@ -57,11 +58,29 @@ class CartView extends StackedView<CartViewModel> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(12),
                               child: item.product.imageUrl.isNotEmpty
-                                  ? Image.network(
-                                      item.product.imageUrl,
+                                  ? CachedNetworkImage(
+                                      imageUrl: item.product.imageUrl,
                                       width: 80,
                                       height: 80,
                                       fit: BoxFit.cover,
+                                      placeholder: (context, url) => Container(
+                                        width: 80,
+                                        height: 80,
+                                        color: Colors.grey[200],
+                                        child: const Center(
+                                          child: SizedBox(
+                                            width: 16,
+                                            height: 16,
+                                            child: CircularProgressIndicator(strokeWidth: 2, color: Colors.orange),
+                                          ),
+                                        ),
+                                      ),
+                                      errorWidget: (context, url, error) => Container(
+                                        width: 80,
+                                        height: 80,
+                                        color: Colors.orange[100],
+                                        child: const Icon(Icons.fastfood, color: Colors.orange),
+                                      ),
                                     )
                                   : Container(
                                       width: 80,
@@ -153,15 +172,15 @@ class CartView extends StackedView<CartViewModel> {
                                 borderRadius: BorderRadius.circular(16),
                               ),
                             ),
-                            onPressed: () {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Checkout functionality coming soon!')),
-                              );
-                            },
-                            child: const Text(
-                              'Checkout',
-                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
+                            onPressed: viewModel.isBusy
+                                ? null
+                                : () => viewModel.checkout(),
+                            child: viewModel.isBusy
+                                ? const CircularProgressIndicator(color: Colors.white)
+                                : const Text(
+                                    'Checkout',
+                                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                  ),
                           ),
                         ),
                       ],

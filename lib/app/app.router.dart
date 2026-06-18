@@ -6,15 +6,18 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/foundation.dart' as _i7;
-import 'package:flutter/material.dart' as _i6;
+import 'package:flutter/foundation.dart' as _i9;
+import 'package:flutter/material.dart' as _i8;
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/ui/views/cart/cart_view.dart' as _i5;
 import 'package:food_delivery_app/ui/views/home/homeview.dart' as _i4;
 import 'package:food_delivery_app/ui/views/login/loginview.dart' as _i3;
+import 'package:food_delivery_app/ui/views/order_tracking/order_tracking_view.dart'
+    as _i7;
+import 'package:food_delivery_app/ui/views/orders/orders_view.dart' as _i6;
 import 'package:food_delivery_app/ui/views/startup/startupview.dart' as _i2;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i8;
+import 'package:stacked_services/stacked_services.dart' as _i10;
 
 class Routes {
   static const startupView = '/';
@@ -25,7 +28,18 @@ class Routes {
 
   static const cartView = '/cart-view';
 
-  static const all = <String>{startupView, loginView, homeView, cartView};
+  static const ordersView = '/orders-view';
+
+  static const orderTrackingView = '/order-tracking-view';
+
+  static const all = <String>{
+    startupView,
+    loginView,
+    homeView,
+    cartView,
+    ordersView,
+    orderTrackingView,
+  };
 }
 
 class StackedRouter extends _i1.RouterBase {
@@ -34,6 +48,8 @@ class StackedRouter extends _i1.RouterBase {
     _i1.RouteDef(Routes.loginView, page: _i3.LoginView),
     _i1.RouteDef(Routes.homeView, page: _i4.HomeView),
     _i1.RouteDef(Routes.cartView, page: _i5.CartView),
+    _i1.RouteDef(Routes.ordersView, page: _i6.OrdersView),
+    _i1.RouteDef(Routes.orderTrackingView, page: _i7.OrderTrackingView),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
@@ -41,7 +57,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<StartupViewArguments>(
         orElse: () => const StartupViewArguments(),
       );
-      return _i6.MaterialPageRoute<dynamic>(
+      return _i8.MaterialPageRoute<dynamic>(
         builder: (context) => _i2.StartupView(key: args.key),
         settings: data,
       );
@@ -50,7 +66,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<LoginViewArguments>(
         orElse: () => const LoginViewArguments(),
       );
-      return _i6.MaterialPageRoute<dynamic>(
+      return _i8.MaterialPageRoute<dynamic>(
         builder: (context) => _i3.LoginView(key: args.key),
         settings: data,
       );
@@ -59,7 +75,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<HomeViewArguments>(
         orElse: () => const HomeViewArguments(),
       );
-      return _i6.MaterialPageRoute<dynamic>(
+      return _i8.MaterialPageRoute<dynamic>(
         builder: (context) => _i4.HomeView(key: args.key),
         settings: data,
       );
@@ -68,8 +84,25 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<CartViewArguments>(
         orElse: () => const CartViewArguments(),
       );
-      return _i6.MaterialPageRoute<dynamic>(
+      return _i8.MaterialPageRoute<dynamic>(
         builder: (context) => _i5.CartView(key: args.key),
+        settings: data,
+      );
+    },
+    _i6.OrdersView: (data) {
+      final args = data.getArgs<OrdersViewArguments>(
+        orElse: () => const OrdersViewArguments(),
+      );
+      return _i8.MaterialPageRoute<dynamic>(
+        builder: (context) => _i6.OrdersView(key: args.key),
+        settings: data,
+      );
+    },
+    _i7.OrderTrackingView: (data) {
+      final args = data.getArgs<OrderTrackingViewArguments>(nullOk: false);
+      return _i8.MaterialPageRoute<dynamic>(
+        builder: (context) =>
+            _i7.OrderTrackingView(key: args.key, orderId: args.orderId),
         settings: data,
       );
     },
@@ -85,7 +118,7 @@ class StackedRouter extends _i1.RouterBase {
 class StartupViewArguments {
   const StartupViewArguments({this.key});
 
-  final _i7.Key? key;
+  final _i9.Key? key;
 
   @override
   String toString() {
@@ -107,7 +140,7 @@ class StartupViewArguments {
 class LoginViewArguments {
   const LoginViewArguments({this.key});
 
-  final _i7.Key? key;
+  final _i9.Key? key;
 
   @override
   String toString() {
@@ -129,7 +162,7 @@ class LoginViewArguments {
 class HomeViewArguments {
   const HomeViewArguments({this.key});
 
-  final _i7.Key? key;
+  final _i9.Key? key;
 
   @override
   String toString() {
@@ -151,7 +184,7 @@ class HomeViewArguments {
 class CartViewArguments {
   const CartViewArguments({this.key});
 
-  final _i7.Key? key;
+  final _i9.Key? key;
 
   @override
   String toString() {
@@ -170,9 +203,55 @@ class CartViewArguments {
   }
 }
 
-extension NavigatorStateExtension on _i8.NavigationService {
+class OrdersViewArguments {
+  const OrdersViewArguments({this.key});
+
+  final _i9.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant OrdersViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
+class OrderTrackingViewArguments {
+  const OrderTrackingViewArguments({this.key, required this.orderId});
+
+  final _i9.Key? key;
+
+  final String orderId;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "orderId": "$orderId"}';
+  }
+
+  @override
+  bool operator ==(covariant OrderTrackingViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key && other.orderId == orderId;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^ orderId.hashCode;
+  }
+}
+
+extension NavigatorStateExtension on _i10.NavigationService {
   Future<dynamic> navigateToStartupView({
-    _i7.Key? key,
+    _i9.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -190,7 +269,7 @@ extension NavigatorStateExtension on _i8.NavigationService {
   }
 
   Future<dynamic> navigateToLoginView({
-    _i7.Key? key,
+    _i9.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -208,7 +287,7 @@ extension NavigatorStateExtension on _i8.NavigationService {
   }
 
   Future<dynamic> navigateToHomeView({
-    _i7.Key? key,
+    _i9.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -226,7 +305,7 @@ extension NavigatorStateExtension on _i8.NavigationService {
   }
 
   Future<dynamic> navigateToCartView({
-    _i7.Key? key,
+    _i9.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -243,8 +322,45 @@ extension NavigatorStateExtension on _i8.NavigationService {
     );
   }
 
+  Future<dynamic> navigateToOrdersView({
+    _i9.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+    transition,
+  }) async {
+    return navigateTo<dynamic>(
+      Routes.ordersView,
+      arguments: OrdersViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> navigateToOrderTrackingView({
+    _i9.Key? key,
+    required String orderId,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+    transition,
+  }) async {
+    return navigateTo<dynamic>(
+      Routes.orderTrackingView,
+      arguments: OrderTrackingViewArguments(key: key, orderId: orderId),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
   Future<dynamic> replaceWithStartupView({
-    _i7.Key? key,
+    _i9.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -262,7 +378,7 @@ extension NavigatorStateExtension on _i8.NavigationService {
   }
 
   Future<dynamic> replaceWithLoginView({
-    _i7.Key? key,
+    _i9.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -280,7 +396,7 @@ extension NavigatorStateExtension on _i8.NavigationService {
   }
 
   Future<dynamic> replaceWithHomeView({
-    _i7.Key? key,
+    _i9.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -298,7 +414,7 @@ extension NavigatorStateExtension on _i8.NavigationService {
   }
 
   Future<dynamic> replaceWithCartView({
-    _i7.Key? key,
+    _i9.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -308,6 +424,43 @@ extension NavigatorStateExtension on _i8.NavigationService {
     return replaceWith<dynamic>(
       Routes.cartView,
       arguments: CartViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> replaceWithOrdersView({
+    _i9.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+    transition,
+  }) async {
+    return replaceWith<dynamic>(
+      Routes.ordersView,
+      arguments: OrdersViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> replaceWithOrderTrackingView({
+    _i9.Key? key,
+    required String orderId,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+    transition,
+  }) async {
+    return replaceWith<dynamic>(
+      Routes.orderTrackingView,
+      arguments: OrderTrackingViewArguments(key: key, orderId: orderId),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,

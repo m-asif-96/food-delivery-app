@@ -68,5 +68,9 @@ class HomeViewModel extends BaseViewModel {
   void navigateToCart() {
     _navigationService.navigateTo(Routes.cartView);
   }
+
+  void navigateToOrders() {
+    _navigationService.navigateTo(Routes.ordersView);
+  }
 }
 
