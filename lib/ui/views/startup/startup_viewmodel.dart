@@ -12,7 +12,7 @@ class StartupViewModel extends BaseViewModel {
     await Future.delayed(const Duration(seconds: 2));
 
     if (_authService.isLoggedIn) {
-      await _navigationService.replaceWithHomeView();
+      _navigationService.replaceWith(Routes.navigationView);
     } else {
       await _navigationService.replaceWithLoginView();
     }

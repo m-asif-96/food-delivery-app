@@ -20,7 +20,7 @@ class LoginViewModel extends BaseViewModel {
       );
 
       await _navigationService.clearStackAndShow(
-        Routes.homeView,
+        Routes.navigationView,
       );
     }
   } catch (e) {

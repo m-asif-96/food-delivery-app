@@ -13,6 +13,7 @@ import 'package:stacked_shared/stacked_shared.dart';
 import '../services/auth_service.dart';
 import '../services/cart_service.dart';
 import '../services/firestore_service.dart';
+import '../services/notification_service.dart';
 import '../services/order_service.dart';
 import '../services/product_service.dart';
 
@@ -35,4 +36,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => ProductService());
   locator.registerLazySingleton(() => CartService());
   locator.registerLazySingleton(() => OrderService());
+  locator.registerLazySingleton(() => NotificationService());
 }

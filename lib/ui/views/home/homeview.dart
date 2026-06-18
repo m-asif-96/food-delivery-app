@@ -46,43 +46,6 @@ class HomeView extends StackedView<HomeViewModel> {
             ),
           ],
         ),
-        actions: [
-          IconButton(
-            onPressed: viewModel.navigateToOrders,
-            icon: const Icon(Icons.receipt_long, color: Colors.black87),
-          ),
-          IconButton(
-
-            onPressed: viewModel.navigateToCart,
-            icon: Stack(
-              clipBehavior: Clip.none,
-              children: [
-                const Icon(Icons.shopping_cart_outlined, color: Colors.black87),
-                if (viewModel.cartItemCount > 0)
-                  Positioned(
-                    right: -4,
-                    top: -4,
-                    child: Container(
-                      padding: const EdgeInsets.all(4),
-                      decoration: const BoxDecoration(
-                        color: Colors.orange,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Text(
-                        '${viewModel.cartItemCount}',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 8),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
