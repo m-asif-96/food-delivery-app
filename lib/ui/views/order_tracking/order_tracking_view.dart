@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/ui/widgets/custom_app_bar.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../widgets/loading_indicator.dart';
 import 'order_tracking_viewmodel.dart';
+import 'package:food_delivery_app/ui/common/app_colors.dart';
 
 class OrderTrackingView extends StackedView<OrderTrackingViewModel> {
   final String orderId;
@@ -16,9 +18,9 @@ class OrderTrackingView extends StackedView<OrderTrackingViewModel> {
   ) {
     return Scaffold(
       appBar: const CustomAppBar(title: 'Order Tracking'),
-      backgroundColor: Colors.grey[50],
+      backgroundColor: AppColors.background,
       body: viewModel.isBusy
-          ? const Center(child: CircularProgressIndicator(color: Colors.orange))
+          ? const LoadingIndicator()
           : !viewModel.dataReady || viewModel.data == null
           ? Center(child: Text('Loading order...', style: TextStyle(fontSize: 16.sp)))
           : Padding(
@@ -36,7 +38,7 @@ class OrderTrackingView extends StackedView<OrderTrackingViewModel> {
                   8.verticalSpace,
                   Text(
                     'Amount: \$${viewModel.data!.totalAmount.toStringAsFixed(2)}',
-                    style: TextStyle(fontSize: 16.sp, color: Colors.black54),
+                    style: TextStyle(fontSize: 16.sp, color: AppColors.textSecondary),
                   ),
                   48.verticalSpace,
                   _buildTimeline(viewModel.data!.status),
@@ -66,11 +68,11 @@ class OrderTrackingView extends StackedView<OrderTrackingViewModel> {
                   width: 24.w,
                   height: 24.w,
                   decoration: BoxDecoration(
-                    color: isCompleted ? Colors.orange : Colors.grey[300],
+                    color: isCompleted ? AppColors.primary : AppColors.greyMedium,
                     shape: BoxShape.circle,
                   ),
                   child: isCompleted
-                      ? Icon(Icons.check, size: 16.w, color: Colors.white)
+                      ? Icon(Icons.check, size: 16.w, color: AppColors.white)
                       : null,
                 ),
                 if (!isLast)
@@ -78,8 +80,8 @@ class OrderTrackingView extends StackedView<OrderTrackingViewModel> {
                     width: 2.w,
                     height: 50.h,
                     color: isCompleted && !isCurrent
-                        ? Colors.orange
-                        : Colors.grey[300],
+                        ? AppColors.primary
+                        : AppColors.greyMedium,
                   ),
               ],
             ),
@@ -92,7 +94,7 @@ class OrderTrackingView extends StackedView<OrderTrackingViewModel> {
                   style: TextStyle(
                     fontSize: 18.sp,
                     fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal,
-                    color: isCompleted ? Colors.black87 : Colors.black38,
+                    color: isCompleted ? AppColors.textPrimary : AppColors.textTertiary,
                   ),
                 ),
               ),

@@ -6,6 +6,7 @@ import '../home/homeview.dart';
 import '../orders/orders_view.dart';
 import '../cart/cart_view.dart';
 import '../notifications/notifications_view.dart';
+import 'package:food_delivery_app/ui/common/app_colors.dart';
 
 class NavigationView extends StackedView<NavigationViewModel> {
   const NavigationView({super.key});
@@ -22,8 +23,8 @@ class NavigationView extends StackedView<NavigationViewModel> {
         type: BottomNavigationBarType.fixed,
         currentIndex: viewModel.currentIndex,
         onTap: viewModel.setIndex,
-        selectedItemColor: Colors.orange,
-        unselectedItemColor: Colors.grey,
+        selectedItemColor: AppColors.primary,
+        unselectedItemColor: AppColors.grey,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined, size: 24.w),
@@ -47,13 +48,13 @@ class NavigationView extends StackedView<NavigationViewModel> {
                     child: Container(
                       padding: EdgeInsets.all(4.w),
                       decoration: const BoxDecoration(
-                        color: Colors.orange,
+                        color: AppColors.primary,
                         shape: BoxShape.circle,
                       ),
                       child: Text(
                         '${viewModel.cartCount}',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: AppColors.white,
                           fontSize: 8.sp,
                           fontWeight: FontWeight.bold,
                         ),
@@ -73,13 +74,13 @@ class NavigationView extends StackedView<NavigationViewModel> {
                     child: Container(
                       padding: EdgeInsets.all(4.w),
                       decoration: const BoxDecoration(
-                        color: Colors.orange,
+                        color: AppColors.primary,
                         shape: BoxShape.circle,
                       ),
                       child: Text(
                         '${viewModel.cartCount}',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: AppColors.white,
                           fontSize: 8.sp,
                           fontWeight: FontWeight.bold,
                         ),
@@ -102,13 +103,13 @@ class NavigationView extends StackedView<NavigationViewModel> {
                     child: Container(
                       padding: EdgeInsets.all(4.w),
                       decoration: const BoxDecoration(
-                        color: Colors.red,
+                        color: AppColors.error,
                         shape: BoxShape.circle,
                       ),
                       child: Text(
                         '${viewModel.unreadCount}',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: AppColors.white,
                           fontSize: 8.sp,
                           fontWeight: FontWeight.bold,
                         ),
@@ -128,13 +129,13 @@ class NavigationView extends StackedView<NavigationViewModel> {
                     child: Container(
                       padding: EdgeInsets.all(4.w),
                       decoration: const BoxDecoration(
-                        color: Colors.red,
+                        color: AppColors.error,
                         shape: BoxShape.circle,
                       ),
                       child: Text(
                         '${viewModel.unreadCount}',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: AppColors.white,
                           fontSize: 8.sp,
                           fontWeight: FontWeight.bold,
                         ),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../widgets/loading_indicator.dart';
 
 import 'startup_viewmodel.dart';
+import 'package:food_delivery_app/ui/common/app_colors.dart';
 
 class StartupView extends StackedView<StartupViewModel> {
   const StartupView({super.key});
@@ -19,7 +21,7 @@ class StartupView extends StackedView<StartupViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -27,7 +29,7 @@ class StartupView extends StackedView<StartupViewModel> {
             Icon(
               Icons.restaurant_menu,
               size: 80.w,
-              color: Colors.orange,
+              color: AppColors.primary,
             ),
             16.verticalSpace,
             Text(
@@ -35,13 +37,11 @@ class StartupView extends StackedView<StartupViewModel> {
               style: TextStyle(
                 fontSize: 24.sp,
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
+                color: AppColors.textPrimary,
               ),
             ),
             48.verticalSpace,
-            const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
-            ),
+            const LoadingIndicator(),
           ],
         ),
       ),
