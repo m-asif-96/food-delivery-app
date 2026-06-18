@@ -16,6 +16,7 @@ import '../services/firestore_service.dart';
 import '../services/notification_service.dart';
 import '../services/order_service.dart';
 import '../services/product_service.dart';
+import '../services/stripe_service.dart';
 
 final locator = StackedLocator.instance;
 
@@ -37,4 +38,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => CartService());
   locator.registerLazySingleton(() => OrderService());
   locator.registerLazySingleton(() => NotificationService());
+  locator.registerLazySingleton(() => StripeService());
 }
