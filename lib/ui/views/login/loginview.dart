@@ -5,6 +5,7 @@ import '../../widgets/custom_button.dart';
 
 import 'login_viewmodel.dart';
 import 'package:food_delivery_app/ui/common/app_colors.dart';
+import 'package:food_delivery_app/ui/common/app_typography.dart';
 
 class LoginView extends StackedView<LoginViewModel> {
   const LoginView({super.key});
@@ -34,21 +35,22 @@ class LoginView extends StackedView<LoginViewModel> {
               Text(
                 'Welcome',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 32.sp,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.textPrimary,
-                ),
+                style: AppTypography.h1,
               ),
               8.verticalSpace,
               Text(
                 'Sign in to order your favorite meals',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  color: AppColors.textSecondary,
-                ),
+                style: AppTypography.bodyLarge.copyWith(color: AppColors.textSecondary),
               ),
+              if (viewModel.hasError) ...[
+                16.verticalSpace,
+                Text(
+                  viewModel.modelError.toString(),
+                  textAlign: TextAlign.center,
+                  style: AppTypography.bodyMedium.copyWith(color: AppColors.error),
+                ),
+              ],
               const Spacer(),
               CustomButton(
                 title: 'Continue with Google',

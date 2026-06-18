@@ -40,31 +40,38 @@ class CartViewModel extends BaseViewModel {
     if (user == null || cartItems.isEmpty) return;
 
     setBusy(true);
+    clearErrors();
 
-    // 1. Process Stripe Payment
-    final paymentSuccess = await _stripeService.processPayment(totalPrice);
+    try {
+      // 1. Process Stripe Payment
+      final paymentSuccess = await _stripeService.processPayment(totalPrice);
 
-    if (!paymentSuccess) {
+      if (!paymentSuccess) {
+        setError('Payment failed or was canceled.');
+        setBusy(false);
+        return;
+      }
+
+      // 2. If payment succeeds, create the order
+      final orderId = await _orderService.createOrder(
+        userId: user.uid,
+        items: cartItems,
+        totalAmount: totalPrice,
+      );
+
+      // 3. Clear the cart
+      _cartService.clearCart();
+      
+      // 4. Navigate to order tracking
+      _navigationService.navigateTo(
+        Routes.orderTrackingView,
+        arguments: OrderTrackingViewArguments(orderId: orderId),
+      );
+    } catch (e) {
+      setError(e.toString());
+    } finally {
       setBusy(false);
-      return;
     }
-
-    // 2. If payment succeeds, create the order
-    final orderId = await _orderService.createOrder(
-      userId: user.uid,
-      items: cartItems,
-      totalAmount: totalPrice,
-    );
-
-    // 3. Clear the cart
-    _cartService.clearCart();
-    setBusy(false);
-
-    // 4. Navigate to order tracking
-    _navigationService.navigateTo(
-      Routes.orderTrackingView,
-      arguments: OrderTrackingViewArguments(orderId: orderId),
-    );
   }
 
   @override

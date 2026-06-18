@@ -6,6 +6,7 @@ import 'home_viewmodel.dart';
 import '../../widgets/product_card.dart';
 import '../../widgets/loading_indicator.dart';
 import '../../widgets/empty_state.dart';
+import '../../widgets/error_state.dart';
 import 'package:food_delivery_app/ui/common/app_colors.dart';
 
 class HomeView extends StackedView<HomeViewModel> {
@@ -104,12 +105,17 @@ class HomeView extends StackedView<HomeViewModel> {
             ),
             24.verticalSpace,
             Expanded(
-              child: viewModel.isBusy
-                  ? const LoadingIndicator()
-                  : viewModel.filteredProducts.isEmpty
-                      ? const EmptyState(
-                          message: 'No products found.',
-                        )
+              child: viewModel.hasError
+                  ? ErrorState(
+                      message: viewModel.modelError.toString(),
+                      onRetry: viewModel.fetchProducts,
+                    )
+                  : viewModel.isBusy
+                      ? const LoadingIndicator()
+                      : viewModel.filteredProducts.isEmpty
+                          ? const EmptyState(
+                              message: 'No products found.',
+                            )
                       : GridView.builder(
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,

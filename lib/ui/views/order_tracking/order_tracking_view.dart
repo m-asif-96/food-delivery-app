@@ -3,6 +3,7 @@ import 'package:food_delivery_app/ui/widgets/custom_app_bar.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../widgets/loading_indicator.dart';
+import '../../widgets/error_state.dart';
 import 'order_tracking_viewmodel.dart';
 import 'package:food_delivery_app/ui/common/app_colors.dart';
 
@@ -19,10 +20,12 @@ class OrderTrackingView extends StackedView<OrderTrackingViewModel> {
     return Scaffold(
       appBar: const CustomAppBar(title: 'Order Tracking'),
       backgroundColor: AppColors.background,
-      body: viewModel.isBusy
-          ? const LoadingIndicator()
-          : !viewModel.dataReady || viewModel.data == null
-          ? Center(child: Text('Loading order...', style: TextStyle(fontSize: 16.sp)))
+      body: viewModel.hasError
+          ? ErrorState(message: viewModel.modelError.toString())
+          : viewModel.isBusy
+              ? const LoadingIndicator()
+              : !viewModel.dataReady || viewModel.data == null
+                  ? Center(child: Text('Loading order...', style: TextStyle(fontSize: 16.sp)))
           : Padding(
               padding: EdgeInsets.all(24.w),
               child: Column(

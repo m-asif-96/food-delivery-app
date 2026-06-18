@@ -7,6 +7,7 @@ import '../../widgets/custom_button.dart';
 import '../../widgets/empty_state.dart';
 import 'cart_viewmodel.dart';
 import 'package:food_delivery_app/ui/common/app_colors.dart';
+import 'package:food_delivery_app/ui/common/app_typography.dart';
 
 class CartView extends StackedView<CartViewModel> {
   const CartView({super.key});
@@ -99,18 +100,12 @@ class CartView extends StackedView<CartViewModel> {
                                 children: [
                                   Text(
                                     item.product.name,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16.sp,
-                                    ),
+                                    style: AppTypography.bodyLargeBold,
                                   ),
                                   4.verticalSpace,
                                   Text(
                                     '\$${item.product.price.toStringAsFixed(2)}',
-                                    style: const TextStyle(
-                                      color: AppColors.primary,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                    style: AppTypography.bodyLargeBold.copyWith(color: AppColors.primary),
                                   ),
                                 ],
                               ),
@@ -127,10 +122,7 @@ class CartView extends StackedView<CartViewModel> {
                                 ),
                                 Text(
                                   '${item.quantity}',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16.sp,
-                                  ),
+                                  style: AppTypography.bodyLargeBold,
                                 ),
                                 IconButton(
                                   icon: const Icon(Icons.add_circle_outline),
@@ -172,22 +164,23 @@ class CartView extends StackedView<CartViewModel> {
                           children: [
                             Text(
                               'Total',
-                              style: TextStyle(
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: AppTypography.h4,
                             ),
                             Text(
                               '\$${viewModel.totalPrice.toStringAsFixed(2)}',
-                              style: TextStyle(
-                                fontSize: 24.sp,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.primary,
-                              ),
+                              style: AppTypography.h3.copyWith(color: AppColors.primary),
                             ),
                           ],
                         ),
                         16.verticalSpace,
+                        if (viewModel.hasError) ...[
+                          Text(
+                            viewModel.modelError.toString(),
+                            style: AppTypography.bodyMediumBold.copyWith(color: AppColors.error),
+                            textAlign: TextAlign.center,
+                          ),
+                          16.verticalSpace,
+                        ],
                         CustomButton(
                           title: 'Checkout',
                           onPressed: viewModel.checkout,

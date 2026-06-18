@@ -4,6 +4,7 @@ import 'package:stacked/stacked.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/loading_indicator.dart';
 import '../../widgets/empty_state.dart';
+import '../../widgets/error_state.dart';
 import 'notifications_viewmodel.dart';
 import 'package:food_delivery_app/ui/common/app_colors.dart';
 
@@ -19,10 +20,12 @@ class NotificationsView extends StackedView<NotificationsViewModel> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: const CustomAppBar(title: 'Notifications'),
-      body: viewModel.isBusy
-          ? const LoadingIndicator()
-          : !viewModel.dataReady || viewModel.data!.isEmpty
-              ? const EmptyState(
+      body: viewModel.hasError
+          ? ErrorState(message: viewModel.modelError.toString())
+          : viewModel.isBusy
+              ? const LoadingIndicator()
+              : !viewModel.dataReady || viewModel.data!.isEmpty
+                  ? const EmptyState(
                   message: 'No new notifications.',
                   icon: Icons.notifications_off_outlined,
                 )
