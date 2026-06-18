@@ -16,7 +16,10 @@ class NotificationsViewModel extends StreamViewModel<List<NotificationModel>> {
   }
 
   void markAsRead(String notificationId) {
-    _notificationService.markAsRead(notificationId);
+    final user = _authService.currentUser;
+    if (user != null) {
+      _notificationService.markAsRead(user.uid, notificationId);
+    }
   }
 }
 
